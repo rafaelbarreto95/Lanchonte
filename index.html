@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imperio Burguer</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+
+  <header class="header">🍔 <h1><b>Imperio <span>Burguer</span></b></h1>
+  </header>
+
+
+  <div class="cart-icon" id="cartBtn">
+    🛒 <span id="count">0</span>
+  </div>
+
+  <section class="hero">
+    <h1>Não perca tempo e peça seu <span>Burguer agora!</span></h1>
+  </section>
+
+  <div class="menu">
+    <button data-cat="burgers" class="active">🍔 Lanches</button>
+    <button data-cat="drinks">🥤 Bebidas</button>
+  </div>
+
+  <div id="burgers" class="categoria active">
+
+    <div class="card">
+      <img src="img/x-burguer.jpg">
+      <div class="info">
+        <h3>X-Burguer</h3>
+        <p>R$ 18</p>
+        <div class="controls">
+          <button data-action="remove" data-name="X-Burguer" data-price="18">-</button>
+          <span id="q-X-Burguer">0</span>
+          <button data-action="add" data-name="X-Burguer" data-price="18">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./img/x-bacon.jpg">
+      <div class="info">
+        <h3>X-Bacon</h3>
+        <p>R$ 20</p>
+        <div class="controls">
+          <button data-action="remove" data-name="X-Bacon" data-price="20">-</button>
+          <span id="q-X-Bacon">0</span>
+          <button data-action="add" data-name="X-Bacon" data-price="20">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./img/x-tudo.jpg">
+      <div class="info">
+        <h3>X-Tudo</h3>
+        <p>R$ 35</p>
+        <div class="controls">
+          <button data-action="remove" data-name="X-Tudo" data-price="35">-</button>
+          <span id="q-X-Tudo">0</span>
+          <button data-action="add" data-name="X-Tudo" data-price="35">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./img/x-calabresa.jpg">
+      <div class="info">
+        <h3>X-Calabresa</h3>
+        <p>R$ 24</p>
+        <div class="controls">
+          <button data-action="remove" data-name="X-Calabresa" data-price="24">-</button>
+          <span id="q-X-Calabresa">0</span>
+          <button data-action="add" data-name="X-Calabresa" data-price="24">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./img/x-egg.jpg">
+      <div class="info">
+        <h3>X-Egg</h3>
+        <p>R$ 21</p>
+        <div class="controls">
+          <button data-action="remove" data-name="X-Egg" data-price="21">-</button>
+          <span id="q-X-Egg">0</span>
+          <button data-action="add" data-name="X-Egg" data-price="21">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="drinks" class="categoria">
+    <div class="card">
+      <img src="./img/coca-cola.jpg">
+      <div class="info">
+        <h3>Coca-Cola</h3>
+        <p>R$ 6</p>
+        <div class="controls">
+          <button data-action="remove" data-name="Coca-Cola" data-price="6">-</button>
+          <span id="q-Coca-Cola">0</span>
+          <button data-action="add" data-name="Coca-Cola" data-price="6">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="./img/pepsi-black.jpg">
+      <div class="info">
+        <h3>Pepsi Black</h3>
+        <p>R$ 6</p>
+        <div class="controls">
+          <button data-action="remove" data-name="Pepsi-Black" data-price="6">-</button>
+          <span id="q-Pepsi-Black">0</span>
+          <button data-action="add" data-name="Pepsi-Black" data-price="6">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="./img/guarana.jpg">
+      <div class="info">
+        <h3>Guarana</h3>
+        <p>R$ 6</p>
+        <div class="controls">
+          <button data-action="remove" data-name="Guarana" data-price="6">-</button>
+          <span id="q-Guarana">0</span>
+          <button data-action="add" data-name="Guarana" data-price="6">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="./img/sprite.jpg">
+      <div class="info">
+        <h3>Sprite</h3>
+        <p>R$ 6</p>
+        <div class="controls">
+          <button data-action="remove" data-name="Sprite" data-price="6">-</button>
+          <span id="q-Sprite">0</span>
+          <button data-action="add" data-name="Sprite" data-price="6">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="cart" id="cart">
+    <h3>Seu pedido</h3>
+    <ul id="lista"></ul>
+
+    <p>Total: R$ <span id="total">0</span></p>
+
+    <select id="entrega">
+      <option value="0">Retirar</option>
+      <option value="5">Entrega +5</option>
+    </select>
+
+    <!-- /* forma de pagamento */ -->
+
+    <label>Forma de pagamento</label>
+    <select id="pagamento">
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+      <option value="Dinheiro">Dinheiro</option>
+    </select>
+
+    <input id="troco" placeholder="Troco para quanto?" style="display:none;">
+
+    <p>Total final: R$ <span id="totalFinal">0</span></p>
+
+    <input id="nome" placeholder="Nome">
+    <input id="endereco" placeholder="Endereço">
+
+    <a id="finalizar" class="btn">Finalizar no WhatsApp</a>
+  </div>
+
+  <section class="footer-delivery">
+
+  <h2>🍔 Imperio burguer.</h2>
+  <p class="subtitle">O sabor que conquista Osasco!🚀</p>
+
+  <!-- BADGES -->
+  <div class="badges">
+    <div class="badge">⭐ +500 pedidos entregues</div>
+    <div class="badge">🔥 Entrega rápida em Osasco</div>
+    <div class="badge">🚀 Média de 30min</div>
+  </div>
+
+  <!-- CTA -->
+  <a href="#" id="ctaWhatsapp" class="cta-btn">
+    📲 Pedir agora pelo WhatsApp
+  </a>
+
+  <!-- INFO -->
+  <div class="footer-info">
+    <p><strong>📍 Endereço:</strong> Rua Exemplo, 123 - Osasco</p>
+    <p><strong>🕒 Horário:</strong> Todos os dias, 18h às 23h</p>
+  </div>
+
+  <!-- MAPA -->
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14626.482618274806!2d-46.815598900000005!3d-23.58206405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce557411fe435f%3A0x87de22b935676672!2sMLIMABURGER!5e0!3m2!1spt-BR!2sbr!4v1776997087475!5m2!1spt-BR!2sbr"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- FOOTER FINAL -->
+  <div class="footer-bottom">
+    <p>© 2026 Burger Flow • Todos os direitos reservados</p>
+  </div>
+
+</section>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
