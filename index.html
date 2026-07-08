@@ -4,220 +4,363 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imperio Burguer</title>
+  <title>Império Burguer | Delivery em Osasco</title>
+  <meta name="description" content="Peça já o seu lanche no Império Burguer. Entrega rápida em Osasco, pedido direto pelo WhatsApp. X-Burguer, X-Tudo, X-Bacon e muito mais.">
+  <meta name="theme-color" content="#14100C">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-
-  <header class="header">🍔 <h1><b>Imperio <span>Burguer</span></b></h1>
+  <header class="header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8l3.5 3L12 5l5.5 6L21 8l-2 11H5L3 8z"/>
+          <circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="3" cy="8" r="1.2" fill="currentColor" stroke="none"/>
+          <circle cx="21" cy="8" r="1.2" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <h1>Império<span>Burguer</span></h1>
+    </div>
   </header>
 
-
-  <div class="cart-icon" id="cartBtn">
-    🛒 <span id="count">0</span>
-  </div>
+  <button class="cart-icon" id="cartBtn" aria-label="Abrir carrinho de compras">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7h2l2 11h10l2-8H7"/>
+      <circle cx="10" cy="20" r="1.3" fill="currentColor" stroke="none"/>
+      <circle cx="16" cy="20" r="1.3" fill="currentColor" stroke="none"/>
+    </svg>
+    <span id="count" class="cart-count">0</span>
+  </button>
 
   <section class="hero">
-    <h1>Não perca tempo e peça seu <span>Burguer agora!</span></h1>
+    <p class="eyebrow">Delivery em Osasco</p>
+    <h2>Não perca tempo e peça seu <span>burguer agora</span></h2>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2L3 9.5l6.4-.6L12 3z"/>
+        </svg>
+        <span>+500 pedidos entregues</span>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+        </svg>
+        <span>Média de 30 min</span>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 12 2a7 7 0 0 1 7 7.5C19 14.9 12 21 12 21z"/>
+          <circle cx="12" cy="9.5" r="2.2"/>
+        </svg>
+        <span>Só em Osasco</span>
+      </div>
+    </div>
   </section>
 
-  <div class="menu">
-    <button data-cat="burgers" class="active">🍔 Lanches</button>
-    <button data-cat="drinks">🥤 Bebidas</button>
+  <div class="menu" role="tablist" aria-label="Categorias do cardápio">
+    <button data-cat="burgers" class="active" role="tab" aria-selected="true">🍔 Lanches</button>
+    <button data-cat="porcoes" role="tab" aria-selected="false">🍟 Porções</button>
+    <button data-cat="drinks" role="tab" aria-selected="false">🥤 Bebidas</button>
   </div>
 
-  <div id="burgers" class="categoria active">
+  <div id="burgers" class="categoria active" role="tabpanel">
 
     <div class="card">
-      <img src="img/x-burguer.jpg">
+      <div class="card-media">
+        <img src="img/x-burguer.jpg" alt="X-Burguer" loading="lazy">
+        <span class="price-tag">R$ 18</span>
+      </div>
       <div class="info">
         <h3>X-Burguer</h3>
-        <p>R$ 18</p>
         <div class="controls">
-          <button data-action="remove" data-name="X-Burguer" data-price="18">-</button>
+          <button data-action="remove" data-name="X-Burguer" data-price="18" aria-label="Remover X-Burguer">−</button>
           <span id="q-X-Burguer">0</span>
-          <button data-action="add" data-name="X-Burguer" data-price="18">+</button>
+          <button data-action="add" data-name="X-Burguer" data-price="18" aria-label="Adicionar X-Burguer">+</button>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <img src="./img/x-bacon.jpg">
+      <div class="card-media">
+        <img src="./img/x-bacon.jpg" alt="X-Bacon" loading="lazy">
+        <span class="price-tag">R$ 20</span>
+      </div>
       <div class="info">
         <h3>X-Bacon</h3>
-        <p>R$ 20</p>
         <div class="controls">
-          <button data-action="remove" data-name="X-Bacon" data-price="20">-</button>
+          <button data-action="remove" data-name="X-Bacon" data-price="20" aria-label="Remover X-Bacon">−</button>
           <span id="q-X-Bacon">0</span>
-          <button data-action="add" data-name="X-Bacon" data-price="20">+</button>
+          <button data-action="add" data-name="X-Bacon" data-price="20" aria-label="Adicionar X-Bacon">+</button>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <img src="./img/x-tudo.jpg">
+      <div class="card-media">
+        <img src="./img/x-tudo.jpg" alt="X-Tudo" loading="lazy">
+        <span class="price-tag">R$ 35</span>
+      </div>
       <div class="info">
         <h3>X-Tudo</h3>
-        <p>R$ 35</p>
         <div class="controls">
-          <button data-action="remove" data-name="X-Tudo" data-price="35">-</button>
+          <button data-action="remove" data-name="X-Tudo" data-price="35" aria-label="Remover X-Tudo">−</button>
           <span id="q-X-Tudo">0</span>
-          <button data-action="add" data-name="X-Tudo" data-price="35">+</button>
+          <button data-action="add" data-name="X-Tudo" data-price="35" aria-label="Adicionar X-Tudo">+</button>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <img src="./img/x-calabresa.jpg">
+      <div class="card-media">
+        <img src="./img/x-calabresa.jpg" alt="X-Calabresa" loading="lazy">
+        <span class="price-tag">R$ 24</span>
+      </div>
       <div class="info">
         <h3>X-Calabresa</h3>
-        <p>R$ 24</p>
         <div class="controls">
-          <button data-action="remove" data-name="X-Calabresa" data-price="24">-</button>
+          <button data-action="remove" data-name="X-Calabresa" data-price="24" aria-label="Remover X-Calabresa">−</button>
           <span id="q-X-Calabresa">0</span>
-          <button data-action="add" data-name="X-Calabresa" data-price="24">+</button>
+          <button data-action="add" data-name="X-Calabresa" data-price="24" aria-label="Adicionar X-Calabresa">+</button>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <img src="./img/x-egg.jpg">
+      <div class="card-media">
+        <img src="./img/x-egg.jpg" alt="X-Egg" loading="lazy">
+        <span class="price-tag">R$ 21</span>
+      </div>
       <div class="info">
         <h3>X-Egg</h3>
-        <p>R$ 21</p>
         <div class="controls">
-          <button data-action="remove" data-name="X-Egg" data-price="21">-</button>
+          <button data-action="remove" data-name="X-Egg" data-price="21" aria-label="Remover X-Egg">−</button>
           <span id="q-X-Egg">0</span>
-          <button data-action="add" data-name="X-Egg" data-price="21">+</button>
+          <button data-action="add" data-name="X-Egg" data-price="21" aria-label="Adicionar X-Egg">+</button>
         </div>
       </div>
     </div>
 
   </div>
 
-  <div id="drinks" class="categoria">
+  <div id="porcoes" class="categoria" role="tabpanel">
     <div class="card">
-      <img src="./img/coca-cola.jpg">
+      <div class="card-media">
+        <img src="./img/batata-cheddar-bacon.jpg" alt="Batata com Cheddar e Bacon" loading="lazy">
+        <span class="price-tag">R$ 22</span>
+      </div>
+      <div class="info">
+        <h3>Batata c/ Cheddar e Bacon</h3>
+        <div class="controls">
+          <button data-action="remove" data-name="Batata-Cheddar-Bacon" data-price="22" aria-label="Remover Batata com Cheddar e Bacon">−</button>
+          <span id="q-Batata-Cheddar-Bacon">0</span>
+          <button data-action="add" data-name="Batata-Cheddar-Bacon" data-price="22" aria-label="Adicionar Batata com Cheddar e Bacon">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-media">
+        <img src="./img/calabresa-frita.jpg" alt="Calabresa Frita" loading="lazy">
+        <span class="price-tag">R$ 18</span>
+      </div>
+      <div class="info">
+        <h3>Calabresa Frita</h3>
+        <div class="controls">
+          <button data-action="remove" data-name="Calabresa-Frita" data-price="18" aria-label="Remover Calabresa Frita">−</button>
+          <span id="q-Calabresa-Frita">0</span>
+          <button data-action="add" data-name="Calabresa-Frita" data-price="18" aria-label="Adicionar Calabresa Frita">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-media">
+        <img src="./img/frango-frito.jpg" alt="Frango Frito" loading="lazy">
+        <span class="price-tag">R$ 20</span>
+      </div>
+      <div class="info">
+        <h3>Frango Frito</h3>
+        <div class="controls">
+          <button data-action="remove" data-name="Frango-Frito" data-price="20" aria-label="Remover Frango Frito">−</button>
+          <span id="q-Frango-Frito">0</span>
+          <button data-action="add" data-name="Frango-Frito" data-price="20" aria-label="Adicionar Frango Frito">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-media">
+        <img src="./img/onion-rings.jpg" alt="Onion Rings" loading="lazy">
+        <span class="price-tag">R$ 16</span>
+      </div>
+      <div class="info">
+        <h3>Onion Rings</h3>
+        <div class="controls">
+          <button data-action="remove" data-name="Onion-Rings" data-price="16" aria-label="Remover Onion Rings">−</button>
+          <span id="q-Onion-Rings">0</span>
+          <button data-action="add" data-name="Onion-Rings" data-price="16" aria-label="Adicionar Onion Rings">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="drinks" class="categoria" role="tabpanel">
+    <div class="card">
+      <div class="card-media">
+        <img src="./img/coca-cola.jpg" alt="Coca-Cola" loading="lazy">
+        <span class="price-tag">R$ 6</span>
+      </div>
       <div class="info">
         <h3>Coca-Cola</h3>
-        <p>R$ 6</p>
         <div class="controls">
-          <button data-action="remove" data-name="Coca-Cola" data-price="6">-</button>
+          <button data-action="remove" data-name="Coca-Cola" data-price="6" aria-label="Remover Coca-Cola">−</button>
           <span id="q-Coca-Cola">0</span>
-          <button data-action="add" data-name="Coca-Cola" data-price="6">+</button>
+          <button data-action="add" data-name="Coca-Cola" data-price="6" aria-label="Adicionar Coca-Cola">+</button>
         </div>
       </div>
     </div>
     <div class="card">
-      <img src="./img/pepsi-black.jpg">
+      <div class="card-media">
+        <img src="./img/pepsi-black.jpg" alt="Pepsi Black" loading="lazy">
+        <span class="price-tag">R$ 6</span>
+      </div>
       <div class="info">
         <h3>Pepsi Black</h3>
-        <p>R$ 6</p>
         <div class="controls">
-          <button data-action="remove" data-name="Pepsi-Black" data-price="6">-</button>
+          <button data-action="remove" data-name="Pepsi-Black" data-price="6" aria-label="Remover Pepsi Black">−</button>
           <span id="q-Pepsi-Black">0</span>
-          <button data-action="add" data-name="Pepsi-Black" data-price="6">+</button>
+          <button data-action="add" data-name="Pepsi-Black" data-price="6" aria-label="Adicionar Pepsi Black">+</button>
         </div>
       </div>
     </div>
     <div class="card">
-      <img src="./img/guarana.jpg">
+      <div class="card-media">
+        <img src="./img/guarana.jpg" alt="Guaraná" loading="lazy">
+        <span class="price-tag">R$ 6</span>
+      </div>
       <div class="info">
-        <h3>Guarana</h3>
-        <p>R$ 6</p>
+        <h3>Guaraná</h3>
         <div class="controls">
-          <button data-action="remove" data-name="Guarana" data-price="6">-</button>
+          <button data-action="remove" data-name="Guarana" data-price="6" aria-label="Remover Guaraná">−</button>
           <span id="q-Guarana">0</span>
-          <button data-action="add" data-name="Guarana" data-price="6">+</button>
+          <button data-action="add" data-name="Guarana" data-price="6" aria-label="Adicionar Guaraná">+</button>
         </div>
       </div>
     </div>
     <div class="card">
-      <img src="./img/sprite.jpg">
+      <div class="card-media">
+        <img src="./img/sprite.jpg" alt="Sprite" loading="lazy">
+        <span class="price-tag">R$ 6</span>
+      </div>
       <div class="info">
         <h3>Sprite</h3>
-        <p>R$ 6</p>
         <div class="controls">
-          <button data-action="remove" data-name="Sprite" data-price="6">-</button>
+          <button data-action="remove" data-name="Sprite" data-price="6" aria-label="Remover Sprite">−</button>
           <span id="q-Sprite">0</span>
-          <button data-action="add" data-name="Sprite" data-price="6">+</button>
+          <button data-action="add" data-name="Sprite" data-price="6" aria-label="Adicionar Sprite">+</button>
         </div>
       </div>
     </div>
   </div>
 
   <div class="overlay" id="overlay"></div>
-  <div class="cart" id="cart">
-    <h3>Seu pedido</h3>
+  <div class="cart" id="cart" role="dialog" aria-label="Carrinho de compras" aria-hidden="true">
+    <div class="cart-header">
+      <h3>Seu pedido</h3>
+      <button id="cartClose" aria-label="Fechar carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <p id="cartVazio" class="cart-vazio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 7h2l2 11h10l2-8H7"/>
+        <circle cx="10" cy="20" r="1.3" fill="currentColor" stroke="none"/>
+        <circle cx="16" cy="20" r="1.3" fill="currentColor" stroke="none"/>
+      </svg>
+      Seu carrinho está vazio.<br>Adicione alguns lanches do cardápio.
+    </p>
     <ul id="lista"></ul>
 
-    <p>Total: R$ <span id="total">0</span></p>
+    <div class="cart-summary">
+      <p>Subtotal <span id="total">R$ 0,00</span></p>
 
-    <select id="entrega">
-      <option value="0">Retirar</option>
-      <option value="5">Entrega +5</option>
-    </select>
+      <label for="entrega">Entrega</label>
+      <select id="entrega">
+        <option value="0">Retirar</option>
+        <option value="5">Entrega +5</option>
+      </select>
 
-    <!-- /* forma de pagamento */ -->
+      <label for="pagamento">Forma de pagamento</label>
+      <select id="pagamento">
+        <option value="Pix">Pix</option>
+        <option value="Cartão">Cartão</option>
+        <option value="Dinheiro">Dinheiro</option>
+      </select>
 
-    <label>Forma de pagamento</label>
-    <select id="pagamento">
-      <option value="Pix">Pix</option>
-      <option value="Cartão">Cartão</option>
-      <option value="Dinheiro">Dinheiro</option>
-    </select>
+      <input id="troco" placeholder="Troco para quanto?" style="display:none;" inputmode="numeric">
 
-    <input id="troco" placeholder="Troco para quanto?" style="display:none;">
+      <div class="cart-divider" aria-hidden="true"></div>
+      <p class="total-final">Total <span id="totalFinal">R$ 0,00</span></p>
+    </div>
 
-    <p>Total final: R$ <span id="totalFinal">0</span></p>
+    <input id="nome" placeholder="Nome" autocomplete="name">
+    <input id="endereco" placeholder="Endereço" autocomplete="street-address">
 
-    <input id="nome" placeholder="Nome">
-    <input id="endereco" placeholder="Endereço">
-
-    <a id="finalizar" class="btn">Finalizar no WhatsApp</a>
+    <button id="finalizar" class="btn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      Finalizar no WhatsApp
+    </button>
   </div>
 
   <section class="footer-delivery">
 
-  <h2>🍔 Imperio burguer.</h2>
-  <p class="subtitle">O sabor que conquista Osasco!🚀</p>
+    <div class="footer-cta">
+      <h2>Fome de Império?</h2>
+      <p class="subtitle">O sabor que conquista Osasco.</p>
+      <button id="ctaWhatsapp" class="cta-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        Pedir agora pelo WhatsApp
+      </button>
+    </div>
 
-  <!-- BADGES -->
-  <div class="badges">
-    <div class="badge">⭐ +500 pedidos entregues</div>
-    <div class="badge">🔥 Entrega rápida em Osasco</div>
-    <div class="badge">🚀 Média de 30min</div>
-  </div>
+    <div class="footer-info">
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 12 2a7 7 0 0 1 7 7.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.2"/></svg>
+        Rua Exemplo, 123 — Osasco
+      </p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Todos os dias, das 18h às 23h
+      </p>
+    </div>
 
-  <!-- CTA -->
-  <a href="#" id="ctaWhatsapp" class="cta-btn">
-    📲 Pedir agora pelo WhatsApp
-  </a>
+    <div class="map-wrapper">
+      <iframe title="Localização Império Burguer"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14626.482618274806!2d-46.815598900000005!3d-23.58206405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce557411fe435f%3A0x87de22b935676672!2sMLIMABURGER!5e0!3m2!1spt-BR!2sbr!4v1776997087475!5m2!1spt-BR!2sbr"
+        loading="lazy">
+      </iframe>
+    </div>
 
-  <!-- INFO -->
-  <div class="footer-info">
-    <p><strong>📍 Endereço:</strong> Rua Exemplo, 123 - Osasco</p>
-    <p><strong>🕒 Horário:</strong> Todos os dias, 18h às 23h</p>
-  </div>
+    <div class="footer-bottom">
+      <span class="brand-mark small" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8l3.5 3L12 5l5.5 6L21 8l-2 11H5L3 8z"/>
+        </svg>
+      </span>
+      <p>© <span id="ano"></span> Império Burguer • Todos os direitos reservados</p>
+    </div>
 
-  <!-- MAPA -->
-  <div class="map-wrapper">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14626.482618274806!2d-46.815598900000005!3d-23.58206405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce557411fe435f%3A0x87de22b935676672!2sMLIMABURGER!5e0!3m2!1spt-BR!2sbr!4v1776997087475!5m2!1spt-BR!2sbr"
-      loading="lazy">
-    </iframe>
-  </div>
-
-  <!-- FOOTER FINAL -->
-  <div class="footer-bottom">
-    <p>© 2026 Burger Flow • Todos os direitos reservados</p>
-  </div>
-
-</section>
+  </section>
 
   <script src="./script.js"></script>
 </body>

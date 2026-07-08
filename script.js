@@ -1,11 +1,11 @@
-
+const WHATSAPP_NUMBER = "5511983786374";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 🔥 SEMPRE COMEÇA LIMPO
+  // 🔥 SEMPRE COMEÇA LIMPO (comportamento intencional: cada visita começa
+  // com o carrinho vazio, mesmo que o navegador tenha um carrinho salvo)
   localStorage.removeItem("cart");
   let cartData = {};
-
 
   // =======================
   // ELEMENTOS
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalFinalEl = document.getElementById("totalFinal");
   const countEl = document.getElementById("count");
   const finalizarBtn = document.getElementById("finalizar");
+  const cartVazioEl = document.getElementById("cartVazio");
 
   const nomeInput = document.getElementById("nome");
   const enderecoInput = document.getElementById("endereco");
@@ -24,6 +25,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cartEl = document.getElementById("cart");
   const cartBtn = document.getElementById("cartBtn");
+  const cartCloseBtn = document.getElementById("cartClose");
+  const overlay = document.getElementById("overlay");
+
+  // =======================
+  // FORMATAÇÃO DE MOEDA (pt-BR)
+  // =======================
+  const formatBRL = (valor) =>
+    valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+  // =======================
+  // TOAST (substitui alert())
+  // =======================
+  let toastTimeout;
+  function showToast(msg) {
+    let toast = document.getElementById("toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "toast";
+      toast.className = "toast";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove("show"), 2800);
+  }
 
   // =======================
   // STORAGE
@@ -31,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cartData));
   }
-
 
   // =======================
   // ATUALIZAR UI
@@ -55,15 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
       total += qtd * preco;
       itens += qtd;
 
-      // 🔥 Atualiza contador no card
       const counter = document.getElementById(`q-${item}`);
       if (counter) counter.textContent = qtd;
 
-      // item lista
       const li = document.createElement("li");
       li.innerHTML = `
-        ${item} x${qtd} - R$ ${qtd * preco}
-        <button class="remove-item">❌</button>
+        <span>${item} x${qtd} - ${formatBRL(qtd * preco)}</span>
+        <button class="remove-item" aria-label="Remover ${item} do carrinho">❌</button>
       `;
 
       li.querySelector("button").onclick = () => {
@@ -74,8 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
       lista.appendChild(li);
     }
 
-    totalEl.textContent = total;
+    cartVazioEl.classList.toggle("hidden", itens > 0);
+    lista.style.display = itens > 0 ? "block" : "none";
+
+    totalEl.textContent = formatBRL(total);
     countEl.textContent = itens;
+    totalEl.dataset.raw = total;
 
     calcularTotalFinal();
     saveCart();
@@ -86,9 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // =======================
   function calcularTotalFinal() {
     const taxa = Number(entregaSelect.value);
-    const total = Number(totalEl.textContent);
+    const total = Number(totalEl.dataset.raw || 0);
 
-    totalFinalEl.textContent = total + taxa;
+    totalFinalEl.textContent = formatBRL(total + taxa);
+    totalFinalEl.dataset.raw = total + taxa;
   }
 
   // =======================
@@ -97,12 +126,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function gerarMensagem() {
 
     if (Object.keys(cartData).length === 0) {
-      alert("Adicione itens!");
+      showToast("Adicione itens ao carrinho primeiro! 🍔");
       return null;
     }
 
-    if (!nomeInput.value || !enderecoInput.value) {
-      alert("Preencha nome e endereço!");
+    if (!nomeInput.value.trim() || !enderecoInput.value.trim()) {
+      showToast("Preencha nome e endereço para finalizar!");
       return null;
     }
 
@@ -112,19 +141,30 @@ document.addEventListener("DOMContentLoaded", () => {
       msg += `• ${item} x${cartData[item].qtd}\n`;
     }
 
-    msg += `\n💵 Total: R$ ${totalFinalEl.textContent}`;
-    msg += `\n👤 Nome: ${nomeInput.value}`;
-    msg += `\n📍 Endereço: ${enderecoInput.value}`;
-
-    // 💳 pagamento
+    msg += `\n💵 Total: ${formatBRL(Number(totalFinalEl.dataset.raw || 0))}`;
+    msg += `\n👤 Nome: ${nomeInput.value.trim()}`;
+    msg += `\n📍 Endereço: ${enderecoInput.value.trim()}`;
     msg += `\n💳 Pagamento: ${pagamentoSelect.value}`;
 
-    // 💰 troco
     if (pagamentoSelect.value === "Dinheiro") {
       msg += `\n💰 Troco para: R$ ${trocoInput.value || "Não informado"}`;
     }
 
     return encodeURIComponent(msg);
+  }
+
+  // =======================
+  // LIMPAR PEDIDO (depois de enviar)
+  // =======================
+  function limparPedido() {
+    cartData = {};
+    nomeInput.value = "";
+    enderecoInput.value = "";
+    trocoInput.value = "";
+    trocoInput.style.display = "none";
+    pagamentoSelect.value = "Pix";
+    entregaSelect.value = "0";
+    update();
   }
 
   // =======================
@@ -135,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = e.target.closest("button[data-action]");
     if (!btn) return;
 
-    const name = btn.dataset.name.replace(/\s/g, "-"); // 🔥 normaliza
+    const name = btn.dataset.name.replace(/\s/g, "-");
     const price = Number(btn.dataset.price);
     const type = btn.dataset.action;
 
@@ -153,20 +193,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =======================
-  // CARRINHO
+  // CARRINHO (abrir/fechar)
   // =======================
-  const overlay = document.getElementById("overlay");
+  function abrirCarrinho() {
+    cartEl.classList.add("active");
+    overlay.classList.add("active");
+    cartEl.setAttribute("aria-hidden", "false");
+  }
 
-  // abrir carrinho
-  cartBtn.addEventListener("click", () => {
-    cartEl.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
-
-  // fechar clicando fora
-  overlay.addEventListener("click", () => {
+  function fecharCarrinho() {
     cartEl.classList.remove("active");
     overlay.classList.remove("active");
+    cartEl.setAttribute("aria-hidden", "true");
+  }
+
+  cartBtn.addEventListener("click", () => {
+    cartEl.classList.contains("active") ? fecharCarrinho() : abrirCarrinho();
+  });
+
+  overlay.addEventListener("click", fecharCarrinho);
+  cartCloseBtn.addEventListener("click", fecharCarrinho);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && cartEl.classList.contains("active")) {
+      fecharCarrinho();
+    }
   });
 
   // =======================
@@ -174,17 +225,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // =======================
   entregaSelect.addEventListener("change", calcularTotalFinal);
 
-
-  // =======Troco Caso o pagamento for em dinheiro 
-
+  // =======================
+  // TROCO (só aparece se pagamento = Dinheiro)
+  // =======================
   pagamentoSelect.addEventListener("change", () => {
-  if (pagamentoSelect.value === "Dinheiro") {
-    trocoInput.style.display = "block";
-  } else {
-    trocoInput.style.display = "none";
-    trocoInput.value = "";
-  }
-});
+    if (pagamentoSelect.value === "Dinheiro") {
+      trocoInput.style.display = "block";
+    } else {
+      trocoInput.style.display = "none";
+      trocoInput.value = "";
+    }
+  });
 
   // =======================
   // FINALIZAR
@@ -193,8 +244,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const msg = gerarMensagem();
     if (!msg) return;
 
-    const numero = "5511983786374";
-    window.open(`https://wa.me/${numero}?text=${msg}`, "_blank");
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+
+    // limpa o pedido depois de enviar, para o próximo cliente começar do zero
+    limparPedido();
+    fecharCarrinho();
+    showToast("Pedido enviado! Confira o WhatsApp 🚀");
   });
 
   // =======================
@@ -208,8 +263,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const target = btn.dataset.cat;
 
-      buttons.forEach(b => b.classList.remove("active"));
+      buttons.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
       btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
 
       categorias.forEach(cat => cat.classList.remove("active"));
 
@@ -220,17 +279,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =======================
+  // CTA DO RODAPÉ
+  // =======================
+  document.getElementById("ctaWhatsapp").addEventListener("click", () => {
+    const msg = encodeURIComponent("Olá! Quero fazer um pedido 🍔");
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+  });
+
+  // =======================
+  // ANO DO RODAPÉ (sempre atualizado)
+  // =======================
+  const anoEl = document.getElementById("ano");
+  if (anoEl) anoEl.textContent = new Date().getFullYear();
+
+  // =======================
   // INIT
   // =======================
   update();
 
-});
-
-document.getElementById("ctaWhatsapp").addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const numero = "5511983786374";
-  const msg = encodeURIComponent("Olá! Quero fazer um pedido 🍔");
-
-  window.open(`https://wa.me/${numero}?text=${msg}`, "_blank");
 });
